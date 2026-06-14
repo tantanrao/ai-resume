@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI職務経歴書ライター — 採用担当者が思わず読む書類を、10分で</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=DM+Serif+Display:ital@0;1&display=swap');
+
+:root {
+  --ink: #1a1a1a;
+  --paper: #f7f5f0;
+  --paper2: #efecea;
+  --rule: #d4cfc7;
+  --accent: #1a4fd6;
+  --accent-light: #e8eefb;
+  --muted: #6b6760;
+  --success: #0f7a4a;
+  --danger: #c0392b;
+  --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ── HEADER ── */
+.site-header {
+  border-bottom: 1px solid var(--rule);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  background: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.logo span { color: var(--accent); }
+.header-cta {
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  padding: 8px 20px;
+  font-size: 0.82rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.header-cta:hover { opacity: 0.85; }
+
+/* ── HERO ── */
+.hero {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 24px 64px;
+  text-align: center;
+}
+.hero-eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  color: var(--ink);
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.hero-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto 40px;
+  font-weight: 300;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  color: var(--ink);
+  display: block;
+}
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+.divider-line {
+  width: 1px;
+  height: 40px;
+  background: var(--rule);
+  align-self: center;
+}
+
+/* ── FORM AREA ── */
+.form-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+/* Step indicator */
+.steps-indicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 0;
+}
+.step-dot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.step-dot.active { color: var(--accent); font-weight: 700; }
+.step-dot.done { color: var(--success); }
+.dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--rule);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: var(--white);
+  flex-shrink: 0;
+}
+.step-dot.active .dot { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+.step-dot.done .dot { border-color: var(--success); color: var(--white); background: var(--success); }
+.step-line { flex: 1; height: 1px; background: var(--rule); }
+
+/* Cards */
+.form-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.field { margin-bottom: 20px; }
+.field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.field label span {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin-left: 6px;
+}
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--paper);
+  transition: border-color 0.15s;
+  outline: none;
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus { border-color: var(--accent); background: var(--white); }
+.field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* Skills tags */
+.skill-input-wrap { position: relative; }
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--paper);
+  cursor: text;
+}
+.tags:focus-within { border-color: var(--accent); background: var(--white); }
+.tag-item {
+  background: var(--accent-light);
+  color: var(--accent);
+  border-radius: 3px;
+  padding: 2px 8px 2px 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.tag-item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0;
+  opacity: 0.7;
+}
+.tag-item button:hover { opacity: 1; }
+.tags input {
+  border: none;
+  background: transparent;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+  flex: 1;
+  min-width: 120px;
+  padding: 2px 4px;
+}
+
+/* Goal select */
+.goal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.goal-opt {
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--paper);
+}
+.goal-opt:hover { border-color: var(--accent); background: var(--accent-light); }
+.goal-opt.selected { border-color: var(--accent); background: var(--accent-light); }
+.goal-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 2px; }
+.goal-desc { font-size: 0.75rem; color: var(--muted); }
+
+/* Generate button */
+.generate-btn {
+  width: 100%;
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  padding: 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.15s, transform 0.1s;
+  letter-spacing: 0.03em;
+}
+.generate-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.generate-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ── LOADING ── */
+.loading-wrap {
+  display: none;
+  text-align: center;
+  padding: 80px 24px;
+}
+.loading-wrap.active { display: block; }
+.loading-bar-track {
+  width: 100%;
+  max-width: 400px;
+  height: 3px;
+  background: var(--rule);
+  border-radius: 2px;
+  margin: 24px auto 16px;
+  overflow: hidden;
+}
+.loading-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+.loading-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.loading-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+/* ── RESULT ── */
+.result-wrap {
+  display: none;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+.result-wrap.active { display: block; }
+
+.result-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.result-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+}
+.result-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-copy, .btn-premium {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-copy {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  color: var(--ink);
+}
+.btn-copy:hover { border-color: var(--ink); }
+.btn-premium {
+  background: var(--accent);
+  border: none;
+  color: var(--white);
+}
+.btn-premium:hover { opacity: 0.85; }
+
+/* Document preview */
+.doc-preview {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.doc-toolbar {
+  background: var(--paper2);
+  border-bottom: 1px solid var(--rule);
+  padding: 10px 20px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.doc-body {
+  padding: 40px 48px;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  min-height: 300px;
+  white-space: pre-wrap;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.doc-body h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 4px;
+  margin: 24px 0 12px;
+}
+.doc-body h2:first-child { margin-top: 0; }
+.doc-body p { margin-bottom: 8px; }
+.doc-body ul { padding-left: 20px; margin-bottom: 8px; }
+.doc-body li { margin-bottom: 4px; }
+
+/* Premium blur overlay */
+.premium-section {
+  position: relative;
+  margin-top: 16px;
+}
+.premium-blur {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 40px 48px;
+  filter: blur(4px);
+  user-select: none;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--muted);
+  pointer-events: none;
+}
+.premium-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(247,245,240,0) 0%, rgba(247,245,240,0.95) 40%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 32px;
+  border-radius: 8px;
+}
+.premium-box {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 28px 32px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+.premium-badge-label {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+.premium-box h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+.premium-box p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+.premium-price {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.premium-price span {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+.premium-includes {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.premium-includes li {
+  font-size: 0.8rem;
+  color: var(--ink);
+  padding: 4px 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.premium-includes li::before {
+  content: '✓';
+  color: var(--success);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.buy-btn {
+  width: 100%;
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  padding: 14px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.buy-btn:hover { opacity: 0.85; }
+
+.retry-link {
+  display: block;
+  text-align: center;
+  margin-top: 32px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .site-header { padding: 0 16px; }
+  .hero { padding: 48px 16px 40px; }
+  .form-wrap, .result-wrap { padding: 0 16px 60px; }
+  .form-card { padding: 20px 16px; }
+  .doc-body { padding: 24px 20px; }
+  .field-row { grid-template-columns: 1fr; }
+  .goal-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 20px; }
+  .divider-line { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">Resume<span>AI</span></div>
+  <button class="header-cta" onclick="document.getElementById('form-section').scrollIntoView({behavior:'smooth'})">無料で作成する</button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">AI × 職務経歴書</div>
+  <h1>採用担当者が<em>思わず読む</em>職務経歴書を、10分で。</h1>
+  <p class="hero-sub">経験を入力するだけ。AIが強みを言語化し、志望業界に最適化された職務経歴書を生成します。</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">10分</span>
+      <span class="stat-label">作成時間</span>
+    </div>
+    <div class="divider-line"></div>
+    <div class="stat">
+      <span class="stat-num">3倍</span>
+      <span class="stat-label">書類通過率の改善目安</span>
+    </div>
+    <div class="divider-line"></div>
+    <div class="stat">
+      <span class="stat-num">無料</span>
+      <span class="stat-label">基本版は無料</span>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<div class="form-wrap" id="form-section">
+
+  <div class="steps-indicator">
+    <div class="step-dot active" id="dot1"><div class="dot">1</div>基本情報</div>
+    <div class="step-line"></div>
+    <div class="step-dot" id="dot2"><div class="dot">2</div>職歴</div>
+    <div class="step-line"></div>
+    <div class="step-dot" id="dot3"><div class="dot">3</div>スキル・志望</div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div id="step1">
+    <div class="form-card">
+      <div class="card-title">基本情報</div>
+      <div class="field-row">
+        <div class="field">
+          <label>現在の職種 <span>例：営業マネージャー</span></label>
+          <input type="text" id="current-job" placeholder="営業マネージャー">
+        </div>
+        <div class="field">
+          <label>業界 <span>例：IT・食品・製造</span></label>
+          <input type="text" id="industry" placeholder="IT">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>社会人経験年数</label>
+          <select id="years">
+            <option value="">選択してください</option>
+            <option>1〜3年</option>
+            <option>3〜5年</option>
+            <option>5〜10年</option>
+            <option>10年以上</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>最終学歴</label>
+          <select id="education">
+            <option value="">選択してください</option>
+            <option>高校卒</option>
+            <option>専門学校卒</option>
+            <option>大学卒（文系）</option>
+            <option>大学卒（理系）</option>
+            <option>大学院卒</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <button class="generate-btn" onclick="goStep2()" style="max-width:200px; padding:12px 32px; width:auto; margin: 0 0 0 auto; display:block">次へ →</button>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2" style="display:none">
+    <div class="form-card">
+      <div class="card-title">これまでの職歴・実績</div>
+      <div class="field">
+        <label>直近の会社名と役職 <span>複数あれば「，」区切り</span></label>
+        <input type="text" id="companies" placeholder="例：株式会社〇〇 営業部リーダー、△△株式会社 法人営業">
+      </div>
+      <div class="field">
+        <label>具体的な実績・成果 <span>数字があると効果的</span></label>
+        <textarea id="achievements" placeholder="例：チームの売上を前年比150%に改善。新規顧客を月20件開拓し、年間契約額5,000万円を達成。部下5名のマネジメントも担当。"></textarea>
+      </div>
+      <div class="field">
+        <label>担当業務・役割</label>
+        <textarea id="duties" placeholder="例：法人向け新規営業、既存顧客フォロー、週次の売上レポート作成、採用面接への参加"></textarea>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px; justify-content:space-between">
+      <button class="generate-btn" onclick="goStep1()" style="max-width:120px; padding:12px; background:var(--white); color:var(--ink); border:1px solid var(--rule)">← 戻る</button>
+      <button class="generate-btn" onclick="goStep3()" style="max-width:200px; padding:12px 32px">次へ →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="step3" style="display:none">
+    <div class="form-card">
+      <div class="card-title">スキル・資格</div>
+      <div class="field">
+        <label>スキル・資格 <span>入力してEnterで追加</span></label>
+        <div class="tags" id="tags-container" onclick="document.getElementById('tag-input').focus()">
+          <input type="text" id="tag-input" placeholder="例：Excel、英語（TOEIC 750）、普通自動車免許" onkeydown="addTag(event)">
+        </div>
+      </div>
+    </div>
+    <div class="form-card">
+      <div class="card-title">志望・アピールポイント</div>
+      <div class="field">
+        <label>志望する職種・業界 <span>転職目的を教えてください</span></label>
+        <input type="text" id="target" placeholder="例：マーケティング職、SaaS業界">
+      </div>
+      <div class="field">
+        <label>転職の目的・理由 <span>簡単でOK</span></label>
+        <textarea id="reason" placeholder="例：マネジメントから個人の専門スキルを活かした仕事に移りたい。より成長できる環境を求めて。" style="min-height:70px"></textarea>
+      </div>
+      <div class="field">
+        <label>文体・トーン</label>
+        <div class="goal-grid" id="tone-grid">
+          <div class="goal-opt selected" onclick="selectTone(this, 'professional')">
+            <div class="goal-title">プロフェッショナル</div>
+            <div class="goal-desc">信頼感・実績重視</div>
+          </div>
+          <div class="goal-opt" onclick="selectTone(this, 'energetic')">
+            <div class="goal-title">エネルギッシュ</div>
+            <div class="goal-desc">熱意・成長意欲を前面に</div>
+          </div>
+          <div class="goal-opt" onclick="selectTone(this, 'logical')">
+            <div class="goal-title">論理的・分析的</div>
+            <div class="goal-desc">データ・根拠を重視</div>
+          </div>
+          <div class="goal-opt" onclick="selectTone(this, 'creative')">
+            <div class="goal-title">クリエイティブ</div>
+            <div class="goal-desc">独自性・発想力を強調</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:12px; justify-content:space-between">
+      <button class="generate-btn" onclick="goStep2()" style="max-width:120px; padding:12px; background:var(--white); color:var(--ink); border:1px solid var(--rule)">← 戻る</button>
+      <button class="generate-btn" id="gen-btn" onclick="generate()">AIで職務経歴書を生成する →</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- LOADING -->
+<div class="loading-wrap" id="loading">
+  <div class="loading-title">AIが作成中です</div>
+  <p style="color:var(--muted); font-size:0.88rem; margin-bottom:4px" id="loading-msg">あなたの経歴を分析しています…</p>
+  <div class="loading-bar-track">
+    <div class="loading-bar-fill" id="loading-bar"></div>
+  </div>
+  <div class="loading-label" id="loading-pct">0%</div>
+</div>
+
+<!-- RESULT -->
+<div class="result-wrap" id="result">
+  <div class="result-header">
+    <div class="result-title">職務経歴書（無料版プレビュー）</div>
+    <div class="result-actions">
+      <button class="btn-copy" onclick="copyText()">テキストをコピー</button>
+      <button class="btn-premium" onclick="openPremium()">Word版を取得 ¥1,980</button>
+    </div>
+  </div>
+
+  <div class="doc-preview">
+    <div class="doc-toolbar">
+      <span>職務経歴書.pdf — プレビュー</span>
+      <span id="word-count"></span>
+    </div>
+    <div class="doc-body" id="doc-body"></div>
+  </div>
+
+  <!-- PREMIUM BLUR -->
+  <div class="premium-section">
+    <div class="premium-blur">
+      【自己PR】
+      私は一貫して結果にこだわり、チームの力を最大限に引き出すことを得意としてきました。
+      前職では新規事業の立ち上げから運営まで全般を担当し、予算管理・採用・マーケティングを
+      横断的にリードしました。特に数値管理においては独自のKPI設計を行い、四半期目標を
+      継続的に達成してきた実績があります。貴社においても即戦力として貢献できると確信しています。
+
+      【志望動機】
+      貴社を志望した理由は、業界内でのポジションと今後の成長可能性に強く共感したからです。
+    </div>
+    <div class="premium-overlay">
+      <div class="premium-box">
+        <span class="premium-badge-label">Premium</span>
+        <h3>自己PR・志望動機も<br>AIが生成します</h3>
+        <p>コピペでそのまま使えるWord形式で取得。面接想定Q&Aも付属。</p>
+        <div class="premium-price">¥1,980 <span>買い切り</span></div>
+        <ul class="premium-includes">
+          <li>自己PR（400字）完全生成</li>
+          <li>志望動機（志望先に最適化）</li>
+          <li>Word（.docx）ファイルで納品</li>
+          <li>面接想定Q&A 5問付き</li>
+          <li>無制限修正リクエスト対応</li>
+        </ul>
+        <button class="buy-btn" onclick="openPremium()">Word版を取得する →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="retry-link" onclick="resetAll()">← もう一度作成する</div>
+</div>
+
+<script>
+let selectedTone = 'professional';
+let tags = [];
+
+// Tag input
+function addTag(e) {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    const val = document.getElementById('tag-input').value.trim().replace(/,$/, '');
+    if (val && !tags.includes(val)) {
+      tags.push(val);
+      renderTags();
+    }
+    document.getElementById('tag-input').value = '';
+  }
+}
+function removeTag(t) {
+  tags = tags.filter(x => x !== t);
+  renderTags();
+}
+function renderTags() {
+  const container = document.getElementById('tags-container');
+  const input = document.getElementById('tag-input');
+  container.innerHTML = '';
+  tags.forEach(t => {
+    const span = document.createElement('span');
+    span.className = 'tag-item';
+    span.innerHTML = `${t}<button onclick="removeTag('${t}')" type="button">×</button>`;
+    container.appendChild(span);
+  });
+  container.appendChild(input);
+  input.focus();
+}
+
+function selectTone(el, tone) {
+  selectedTone = tone;
+  document.querySelectorAll('.goal-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// Step navigation
+function goStep1() {
+  document.getElementById('step1').style.display = 'block';
+  document.getElementById('step2').style.display = 'none';
+  document.getElementById('step3').style.display = 'none';
+  updateDots(1);
+}
+function goStep2() {
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('step2').style.display = 'block';
+  document.getElementById('step3').style.display = 'none';
+  updateDots(2);
+}
+function goStep3() {
+  document.getElementById('step2').style.display = 'none';
+  document.getElementById('step3').style.display = 'block';
+  updateDots(3);
+}
+function updateDots(active) {
+  for (let i = 1; i <= 3; i++) {
+    const d = document.getElementById('dot' + i);
+    d.classList.remove('active', 'done');
+    if (i < active) d.classList.add('done');
+    if (i === active) d.classList.add('active');
+  }
+}
+
+async function generate() {
+  const currentJob = document.getElementById('current-job').value.trim();
+  const industry = document.getElementById('industry').value.trim();
+  const years = document.getElementById('years').value;
+  const education = document.getElementById('education').value;
+  const companies = document.getElementById('companies').value.trim();
+  const achievements = document.getElementById('achievements').value.trim();
+  const duties = document.getElementById('duties').value.trim();
+  const target = document.getElementById('target').value.trim();
+  const reason = document.getElementById('reason').value.trim();
+
+  if (!currentJob || !achievements) {
+    alert('現在の職種と実績・成果は必ず入力してください');
+    return;
+  }
+
+  // Show loading
+  document.getElementById('form-section').style.display = 'none';
+  document.querySelector('.form-wrap').style.display = 'none';
+  document.getElementById('loading').classList.add('active');
+
+  const msgs = [
+    'あなたの経歴を分析しています…',
+    '強みを抽出しています…',
+    '業界に最適化しています…',
+    '文章を磨いています…',
+    'もう少しで完成です…'
+  ];
+  let pct = 0;
+  const bar = document.getElementById('loading-bar');
+  const pctEl = document.getElementById('loading-pct');
+  const msgEl = document.getElementById('loading-msg');
+  let mi = 0;
+  const interval = setInterval(() => {
+    pct = Math.min(pct + Math.random() * 12, 90);
+    bar.style.width = pct + '%';
+    pctEl.textContent = Math.round(pct) + '%';
+    if (mi < msgs.length - 1) { mi++; msgEl.textContent = msgs[mi]; }
+  }, 800);
+
+  const toneMap = {
+    professional: 'プロフェッショナルで信頼感のある',
+    energetic: '熱意と成長意欲が伝わる',
+    logical: '論理的でデータを重視した',
+    creative: '独自性と創造力が際立つ'
+  };
+
+  const prompt = `あなたは転職支援のプロです。以下の情報をもとに、採用担当者が思わず読みたくなる職務経歴書の本文を日本語で作成してください。
+
+【入力情報】
+現在の職種: ${currentJob}
+業界: ${industry || '未記入'}
+経験年数: ${years || '未記入'}
+学歴: ${education || '未記入'}
+職歴・会社: ${companies || '未記入'}
+実績・成果: ${achievements}
+担当業務: ${duties || '未記入'}
+スキル・資格: ${tags.join('、') || '未記入'}
+志望職種: ${target || '未記入'}
+転職理由: ${reason || '未記入'}
+文体: ${toneMap[selectedTone]}
+
+【出力形式】
+以下の見出しで構成してください（見出しは ## で記載）。自己PRと志望動機は含めないでください（有料版で提供）。
+
+## 職務要約
+（3〜4文で経歴のハイライト）
+
+## 職務経歴
+（会社名・期間・役職・主な業務・実績を具体的に。箇条書き可）
+
+## 保有スキル・資格
+（スキルと資格を整理して記載）
+
+採用担当者が読みたくなるよう、具体的な数字・成果を盛り込み、強みが伝わる文章にしてください。`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content.map(i => i.text || '').join('');
+
+    clearInterval(interval);
+    bar.style.width = '100%';
+    pctEl.textContent = '100%';
+
+    setTimeout(() => {
+      document.getElementById('loading').classList.remove('active');
+      showResult(text);
+    }, 500);
+
+  } catch (err) {
+    clearInterval(interval);
+    // Fallback
+    const fallback = `## 職務要約\n${currentJob}として${years || '数年'}の経験を持ち、${industry || '業界'}において一貫して成果を上げてきました。特に${achievements.slice(0, 50)}など、具体的な数値実績を残しています。チームへの貢献と個人の専門性を両立させながら、組織の成長に寄与してきました。\n\n## 職務経歴\n${companies || '株式会社〇〇'}\n・${duties || '各種業務を担当'}\n・${achievements}\n\n## 保有スキル・資格\n${tags.length > 0 ? tags.join('、') : 'Excelなど基本的なPCスキル'}`;
+    clearInterval(interval);
+    document.getElementById('loading').classList.remove('active');
+    showResult(fallback);
+  }
+}
+
+function showResult(text) {
+  const docBody = document.getElementById('doc-body');
+
+  // Convert markdown-ish to HTML
+  const html = text
+    .replace(/## (.+)/g, '<h2>$1</h2>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/^・(.+)/gm, '<li>$1</li>')
+    .replace(/^[-・](.+)/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>\n?)+/g, m => `<ul>${m}</ul>`)
+    .split('\n').map(line => {
+      if (line.startsWith('<h2>') || line.startsWith('<ul>') || line.startsWith('<li>')) return line;
+      if (line.trim() === '') return '';
+      return `<p>${line}</p>`;
+    }).join('\n');
+
+  docBody.innerHTML = html;
+
+  const wc = text.replace(/<[^>]+>/g, '').length;
+  document.getElementById('word-count').textContent = `約${wc}文字`;
+
+  document.getElementById('result').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window._resumeText = text;
+}
+
+function copyText() {
+  if (window._resumeText) {
+    navigator.clipboard.writeText(window._resumeText).then(() => {
+      const btn = document.querySelector('.btn-copy');
+      btn.textContent = 'コピーしました ✓';
+      setTimeout(() => btn.textContent = 'テキストをコピー', 2000);
+    });
+  }
+}
+
+function openPremium() {
+  // Stripeリンクに差し替え
+  alert('Stripeの決済リンクをここに設定してください（¥1,980）');
+}
+
+function resetAll() {
+  document.getElementById('result').classList.remove('active');
+  document.querySelector('.form-wrap').style.display = 'block';
+  document.getElementById('form-section').style.display = 'block';
+  goStep1();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
