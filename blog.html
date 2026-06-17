@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIで職務経歴書を自動生成｜10分で完成する無料ツール2026年版</title>
+<meta name="description" content="職務経歴書をAIが自動生成。経験を入力するだけで採用担当者が読みたくなる書類が10分で完成。転職活動を効率化する無料AIツール。">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Serif+Display:ital@0;1&display=swap');
+:root { --ink:#1a1a1a; --paper:#f7f5f0; --accent:#1a4fd6; --muted:#666; --border:#d4cfc7; --card:#fff; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--paper); color:var(--ink); font-family:'Noto Sans JP',sans-serif; font-size:16px; line-height:1.8; }
+.site-header { border-bottom:1px solid var(--border); padding:0 24px; height:52px; display:flex; align-items:center; justify-content:space-between; background:#fff; position:sticky; top:0; z-index:10; }
+.logo { font-family:'DM Serif Display',serif; font-size:1rem; color:var(--ink); text-decoration:none; }
+.header-cta { background:var(--accent); color:#fff; border:none; padding:8px 18px; border-radius:4px; font-size:0.8rem; font-weight:700; font-family:'Noto Sans JP',sans-serif; cursor:pointer; }
+.hero-article { background:var(--ink); color:#fff; padding:60px 24px; text-align:center; }
+.hero-article .eyebrow { font-size:0.72rem; letter-spacing:3px; text-transform:uppercase; opacity:0.6; margin-bottom:16px; }
+.hero-article h1 { font-family:'DM Serif Display',serif; font-size:clamp(1.6rem,4vw,2.4rem); font-style:italic; line-height:1.3; margin-bottom:16px; }
+.hero-article .lead { font-size:1rem; opacity:0.75; max-width:560px; margin:0 auto; font-weight:300; }
+.container { max-width:720px; margin:0 auto; padding:48px 24px; }
+h2 { font-size:1.4rem; font-weight:700; margin:48px 0 16px; padding-left:12px; border-left:3px solid var(--accent); }
+h3 { font-size:1.1rem; font-weight:700; margin:32px 0 12px; }
+p { margin-bottom:16px; color:#333; }
+.toc { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:24px; margin-bottom:40px; }
+.toc-title { font-weight:700; margin-bottom:12px; font-size:0.9rem; }
+.toc ol { padding-left:20px; }
+.toc li { margin-bottom:6px; font-size:0.9rem; }
+.toc a { color:var(--accent); text-decoration:none; }
+.check-list { list-style:none; margin:16px 0; }
+.check-list li { padding:8px 0 8px 28px; position:relative; border-bottom:1px solid var(--border); font-size:0.95rem; }
+.check-list li::before { content:'✓'; position:absolute; left:0; color:var(--accent); font-weight:700; }
+.highlight-box { background:#e8eefb; border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:20px 24px; margin:24px 0; }
+.highlight-box p { margin:0; color:#1a1a1a; }
+.cta-box { background:var(--ink); color:#fff; border-radius:16px; padding:40px 32px; text-align:center; margin:48px 0; }
+.cta-box h3 { font-family:'DM Serif Display',serif; font-size:1.4rem; font-style:italic; margin-bottom:8px; }
+.cta-box p { color:#aaa; margin-bottom:24px; font-weight:300; }
+.cta-btn { display:inline-block; background:var(--accent); color:#fff; padding:16px 40px; border-radius:4px; font-weight:700; font-size:1rem; text-decoration:none; }
+.before-after { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:24px 0; }
+.ba-card { border-radius:8px; padding:20px; }
+.ba-before { background:#fff0f0; border:1px solid #fca5a5; }
+.ba-after { background:#f0fff4; border:1px solid #6ee7b7; }
+.ba-label { font-size:0.75rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+.ba-before .ba-label { color:#dc2626; }
+.ba-after .ba-label { color:#059669; }
+.ba-text { font-size:0.88rem; line-height:1.6; }
+.step-wrap { counter-reset:step; }
+.step-item { display:flex; gap:16px; margin-bottom:24px; }
+.step-num { width:36px; height:36px; background:var(--accent); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0; font-size:0.9rem; }
+.step-body h4 { font-size:1rem; font-weight:700; margin-bottom:6px; }
+.step-body p { margin:0; font-size:0.92rem; color:#444; }
+.faq-item { border:1px solid var(--border); border-radius:8px; margin-bottom:12px; overflow:hidden; }
+.faq-q { padding:16px 20px; font-weight:700; background:var(--card); font-size:0.95rem; }
+.faq-a { padding:16px 20px; background:#f7f5f0; font-size:0.9rem; color:#444; line-height:1.7; border-top:1px solid var(--border); }
+.related-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
+.related-card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:16px; text-decoration:none; color:var(--ink); }
+.related-card-title { font-size:0.9rem; font-weight:700; margin-bottom:4px; }
+.related-card-sub { font-size:0.78rem; color:var(--muted); }
+@media(max-width:600px) { .before-after{grid-template-columns:1fr} .related-grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="logo">ResumeAI</a>
+  <button class="header-cta" onclick="location.href='/'">無料で作成する</button>
+</header>
+
+<div class="hero-article">
+  <div class="eyebrow">転職 × AI</div>
+  <h1>AIで職務経歴書を自動生成｜<br>10分で完成する無料ツール2026年版</h1>
+  <p class="lead">経験を入力するだけ。採用担当者が思わず読みたくなる書類をAIが瞬時に生成します。</p>
+</div>
+
+<div class="container">
+  <div class="toc">
+    <div class="toc-title">📋 この記事の内容</div>
+    <ol>
+      <li><a href="#problem">職務経歴書で多くの人が躓く理由</a></li>
+      <li><a href="#ai-merit">AI生成のメリット・デメリット</a></li>
+      <li><a href="#howto">AIで職務経歴書を作る手順</a></li>
+      <li><a href="#tips">採用担当者が評価するポイント</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+    </ol>
+  </div>
+
+  <h2 id="problem">職務経歴書で多くの人が躓く理由</h2>
+  <p>転職活動において、多くの人が職務経歴書の作成に平均<strong>8〜12時間</strong>を費やすと言われています。なぜそれほど時間がかかるのでしょうか？</p>
+
+  <h3>よくある3つの悩み</h3>
+  <ul class="check-list">
+    <li>自分の経験をどう「強み」として表現すればいいかわからない</li>
+    <li>数字や実績がなく、薄い内容になってしまう</li>
+    <li>志望企業に合わせた書き方の調整が大変</li>
+  </ul>
+
+  <div class="highlight-box">
+    <p><strong>データ：</strong>採用担当者が1枚の職務経歴書を最初に確認する時間は平均<strong>6秒</strong>（HR総研調べ）。この6秒で「読み続けたい」と思わせる書類が必要です。</p>
+  </div>
+
+  <div class="before-after">
+    <div class="ba-card ba-before">
+      <div class="ba-label">❌ よくあるNG例</div>
+      <div class="ba-text">「営業として顧客対応を行い、売上向上に貢献しました」<br><br>→ 数字なし・具体性なし・誰でも書けてしまう</div>
+    </div>
+    <div class="ba-card ba-after">
+      <div class="ba-label">✅ AI生成の例</div>
+      <div class="ba-text">「法人営業として月20件の新規開拓を実施。前年比150%の売上を達成し、チーム全体のKPI設計にも貢献」<br><br>→ 数字・行動・成果が明確</div>
+    </div>
+  </div>
+
+  <h2 id="ai-merit">AI生成のメリット・デメリット</h2>
+  <h3>メリット</h3>
+  <ul class="check-list">
+    <li>平均8時間→10分に短縮。転職活動に集中できる</li>
+    <li>「強みの言語化」をAIが代行。自己PRが苦手な人でも安心</li>
+    <li>業界・職種に最適化された表現を自動で選択</li>
+    <li>何度でも修正・再生成できる</li>
+  </ul>
+
+  <h3>注意点</h3>
+  <ul class="check-list">
+    <li>生成された文章は必ず自分でチェック・事実確認をする</li>
+    <li>数字や実績は正確な情報を入力することが重要</li>
+    <li>最終的な志望動機は自分の言葉で加筆することを推奨</li>
+  </ul>
+
+  <h2 id="howto">AIで職務経歴書を作る手順（3ステップ）</h2>
+  <div class="step-wrap">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>基本情報を入力する</h4>
+        <p>現在の職種・業界・経験年数・学歴を選択。1分で完了します。</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>実績・スキルを入力する</h4>
+        <p>具体的な数字（売上・件数・削減率など）と担当業務を入力。箇条書きでOK。</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>AIが職務経歴書を生成</h4>
+        <p>職務要約・職務経歴・スキルを含む完成版が即座に生成。テキストコピーまたはWord版（¥980）で取得可能。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h3>今すぐ職務経歴書を作成する</h3>
+    <p>無料で使えます。所要時間10分。<br>Word版・自己PR・面接Q&Aはプレミアムで取得。</p>
+    <a href="/" class="cta-btn">無料でAI職務経歴書を作成する →</a>
+  </div>
+
+  <h2 id="tips">採用担当者が評価する職務経歴書のポイント</h2>
+  <h3>1. 数字で語る</h3>
+  <p>「売上向上に貢献」より「前年比150%の売上達成」。具体的な数字があるだけで説得力が3倍変わります。当AIは入力した数字を効果的に文章に組み込みます。</p>
+
+  <h3>2. 1枚目で勝負が決まる</h3>
+  <p>職務要約（サマリー）は特に重要です。3〜4行でキャリアのハイライトを伝え、「続きを読みたい」と思わせることが鍵です。</p>
+
+  <h3>3. 志望企業に合わせる</h3>
+  <p>同じ経歴でも、営業職向けと企画職向けでは強調すべき点が異なります。AIに志望職種を入力することで、自動的に最適化されます。</p>
+
+  <h2 id="faq">よくある質問</h2>
+  <div class="faq-item">
+    <div class="faq-q">Word形式でダウンロードできますか？</div>
+    <div class="faq-a">プレミアム版（¥980）でWord（.docx）形式での取得が可能です。そのまま提出できる書式で提供します。</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">職種・業界を問わず使えますか？</div>
+    <div class="faq-a">営業・IT・医療・教育・製造など幅広い業種に対応しています。志望職種を入力することで自動最適化されます。</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">自己PRや志望動機も作れますか？</div>
+    <div class="faq-a">プレミアム版では自己PR（400字）・志望動機・面接想定Q&A5問も生成します。</div>
+  </div>
+
+  <div style="border-top:1px solid var(--border);padding-top:32px;margin-top:48px">
+    <div style="font-weight:700;margin-bottom:16px">関連ツール</div>
+    <div class="related-grid">
+      <a href="https://ai-shindan-pi.vercel.app" class="related-card">
+        <div class="related-card-title">AIビジネス診断</div>
+        <div class="related-card-sub">起業・副業アイデアをAIがスコア診断</div>
+      </a>
+      <a href="https://ai-ninso.vercel.app" class="related-card">
+        <div class="related-card-title">AI人相診断</div>
+        <div class="related-card-sub">写真1枚で才能・性格を診断</div>
+      </a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
