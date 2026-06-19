@@ -277,6 +277,13 @@ body{background:var(--paper);color:var(--ink);font-family:'Noto Sans JP',sans-se
     </div>
   </div>
 
+  <div class="tenshoku-cta" id="tenshoku-cta" style="display:none;background:var(--card,#161a23);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:22px;margin-top:16px;text-align:center">
+    <div style="font-size:0.7rem;letter-spacing:1px;color:#9aa1b5;margin-bottom:8px">職務経歴書、完成おめでとうございます</div>
+    <div style="font-size:1.05rem;font-weight:700;margin-bottom:8px">この経歴書、そのまま転職エージェントに見てもらいませんか？</div>
+    <p style="font-size:0.85rem;color:#9aa1b5;line-height:1.7;margin-bottom:16px">完成した経歴書を使って、プロのキャリアアドバイザーに無料で市場価値を見てもらえます。登録は1分・相談だけでもOKです。</p>
+    <a id="tenshoku-cta-btn" href="#" target="_blank" rel="noopener sponsored" style="display:inline-block;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;text-decoration:none;font-size:0.92rem">転職サポートに無料相談する →</a>
+  </div>
+
   <div class="share-row">
     <button class="sbtn" onclick="shareX()">𝕏 結果をシェア</button>
     <button class="sbtn" onclick="shareLine()">💬 LINEで共有</button>
@@ -286,6 +293,18 @@ body{background:var(--paper);color:var(--ink);font-family:'Noto Sans JP',sans-se
 
 <script>
 const STRIPE='https://buy.stripe.com/28EcN7fpt4vD5iz6zA18c01';
+
+// ★★★ 転職サポートアフィリエイトCTA設定欄 ★★★
+// 転職エージェント（リクルートエージェント/doda/マイナビエージェント等）の成果報酬リンクをASP提携後に設定してください
+// 成果単価が高い（1件5,000〜30,000円）ため、最優先で提携申請する価値があります
+const TENSHOKU_CTA_URL = '';
+(function initTenshokuCta(){
+  if(!TENSHOKU_CTA_URL) return;
+  const box = document.getElementById('tenshoku-cta');
+  const btn = document.getElementById('tenshoku-cta-btn');
+  btn.href = TENSHOKU_CTA_URL;
+  box.style.display = 'block';
+})();
 let selectedTone='professional',tags=[];
 
 function goS1(){document.getElementById('s1').style.display='block';document.getElementById('s2').style.display='none';updateSI(1);}
